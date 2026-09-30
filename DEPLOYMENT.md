@@ -1,30 +1,21 @@
-# Deployment status — 2026-09-30
+# Equipnivo deployment — 2026-09-30
 
-- Repository: https://github.com/RyanGAt/maintainr-website
-- Framework: Astro 7.3.5 + TypeScript, static output.
-- Static content release: `8f21be690fdd49f9b211ee5fb5fb44d59a17bd21`.
-- VPS: `85.190.106.89`.
-- Content: `/var/www/maintainr-website/releases/8f21be690fdd49f9b211ee5fb5fb44d59a17bd21`.
-- Active symlink: `/var/www/maintainr-website/current`.
-- Container: `maintainr-website`, restart policy `unless-stopped`, no public host ports.
-- Nginx: `/var/www/maintainr-website/deploy/container-nginx.conf`, mounted as `/etc/nginx/conf.d/default.conf` in the dedicated container.
-- Compose: `/var/www/maintainr-website/deploy/compose.yaml`.
-- Routing: existing Coolify Traefik proxy; dedicated domain-only HTTP/HTTPS routes using its existing Let's Encrypt resolver.
-- Host Nginx remains disabled. Its existing sites were preserved. The unused new Maintainr host config was removed from sites-enabled and archived under `/home/administrator/maintainr-unused-host-nginx.conf`.
-- Pre-change host Nginx backup: `/home/administrator/nginx-before-maintainr-8f21be690fdd49f9b211ee5fb5fb44d59a17bd21.tar.gz`.
+Canonical website: https://equipnivo.stackedthink.com
+Repository: https://github.com/RyanGAt/equipnivo-website
 
-## Verification
+- Framework: Astro + TypeScript, static output; Barlow Condensed/Inter served locally.
+- Identity: angular Equipnivo E mark, oxide red accent, navy/charcoal and sharp industrial layout.
+- Routes: home, download/getting started, licence help, 404; SEO, sitemap, robots, PNG Open Graph image and SoftwareApplication data use the Equipnivo domain.
+- VPS: 85.190.106.89.
+- Root: /var/www/equipnivo-website; current symlink points to an immutable static release.
+- Container: equipnivo-website, on the existing coolify network with no public host ports.
+- Nginx: /var/www/equipnivo-website/deploy/container-nginx.conf.
+- Compose: /var/www/equipnivo-website/deploy/compose.yaml.
+- TLS: existing Traefik letsencrypt resolver, automated renewal. HTTP redirects to HTTPS.
+- Cloudflare: equipnivo A record → 85.190.106.89, DNS only, TTL Auto.
+- Old maintainr.stackedthink.com hostname: permanent redirect to https://equipnivo.stackedthink.com preserving the request path and query. The old container exists only to serve this redirect with its existing certificate.
+- Host Nginx remains disabled. Sunshine Plunge, shared proxy, licensing hostname/configuration and Stripe checkout are preserved.
 
-Astro check: zero errors, warnings and hints. Production build: four static pages. Desktop and 390px mobile layouts inspected; mobile had no horizontal overflow. FAQ expansion verified.
+Deployment requires nginx -t before starting/reloading the website Nginx. The old site's Nginx config is backed up before installing its redirect. The website source is pushed to main and the static release is identified in /var/www/equipnivo-website/deployed-commit.txt.
 
-Using explicit Host routing to the VPS: home, download, licence help, robots, sitemap and social image returned 200; a missing path returned 404. The external HTTP request using curl `--resolve` returned 200. Sunshine Plunge HTTPS still returned 200 with certificate validation.
-
-## DNS and HTTPS completed
-
-On 2026-09-30 the Cloudflare A record for `maintainr.stackedthink.com` was created pointing to `85.190.106.89`, DNS only, TTL Auto (300 seconds). Public DNS resolves correctly. HTTPS returns 200 with a valid Let's Encrypt certificate matching the domain, expiring 2026-12-29. The HTTP router redirects to HTTPS. Traefik manages certificate renewal through its existing resolver.
-
-The site is publicly available at https://maintainr.stackedthink.com. No unrelated DNS records were modified. The dedicated HTTPS router is named `maintainr-website-secure`. DNS and HTTPS require no further manual setup.
-
-No Windows release assets exist in RyanGAt/Maintainr as of this check. Download buttons accurately say coming soon. Set the exact installer URL in `src/config.ts` only after a stable publicly downloadable Windows installer exists.
-
-The application repository, Stripe checkout, licensing configuration and license.stackedthink.com were not modified.
+No installer has been published. Download labels remain coming soon. Application release plan: APP-RENAME-PLAN.md. Production checkout and licensing may still show the old product name until the separately approved cutover.

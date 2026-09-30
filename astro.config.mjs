@@ -1,2 +1,2 @@
 import { defineConfig } from 'astro/config';
-export default defineConfig({ site: 'https://maintainr.stackedthink.com', output: 'static', trailingSlash: 'always' });
+export default defineConfig({ site: 'https://equipnivo.stackedthink.com', output: 'static', trailingSlash: 'always' });

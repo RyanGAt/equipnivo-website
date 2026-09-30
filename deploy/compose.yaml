@@ -1,28 +1,29 @@
+name: equipnivo-website
 services:
   website:
     image: nginx:stable-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94
-    container_name: maintainr-website
+    container_name: equipnivo-website
     restart: unless-stopped
     volumes:
-      - /var/www/maintainr-website:/var/www/maintainr-website:ro
-      - /var/www/maintainr-website/deploy/container-nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - /var/www/equipnivo-website:/var/www/equipnivo-website:ro
+      - /var/www/equipnivo-website/deploy/container-nginx.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
       - coolify
     labels:
       traefik.enable: 'true'
       traefik.docker.network: coolify
-      traefik.http.services.maintainr-website.loadbalancer.server.port: '80'
-      traefik.http.routers.maintainr-website-http.rule: Host(`maintainr.stackedthink.com`)
-      traefik.http.routers.maintainr-website-http.entrypoints: http
-      traefik.http.routers.maintainr-website-http.service: maintainr-website
-      traefik.http.middlewares.maintainr-redirect.redirectscheme.scheme: https
-      traefik.http.middlewares.maintainr-redirect.redirectscheme.permanent: 'true'
-      traefik.http.routers.maintainr-website-http.middlewares: maintainr-redirect
-      traefik.http.routers.maintainr-website-secure.rule: Host(`maintainr.stackedthink.com`)
-      traefik.http.routers.maintainr-website-secure.entrypoints: https
-      traefik.http.routers.maintainr-website-secure.service: maintainr-website
-      traefik.http.routers.maintainr-website-secure.tls: 'true'
-      traefik.http.routers.maintainr-website-secure.tls.certresolver: letsencrypt
+      traefik.http.services.equipnivo-website.loadbalancer.server.port: '80'
+      traefik.http.routers.equipnivo-website-http.rule: Host(`equipnivo.stackedthink.com`)
+      traefik.http.routers.equipnivo-website-http.entrypoints: http
+      traefik.http.routers.equipnivo-website-http.service: equipnivo-website
+      traefik.http.middlewares.equipnivo-redirect.redirectscheme.scheme: https
+      traefik.http.middlewares.equipnivo-redirect.redirectscheme.permanent: 'true'
+      traefik.http.routers.equipnivo-website-http.middlewares: equipnivo-redirect
+      traefik.http.routers.equipnivo-website-secure.rule: Host(`equipnivo.stackedthink.com`)
+      traefik.http.routers.equipnivo-website-secure.entrypoints: https
+      traefik.http.routers.equipnivo-website-secure.service: equipnivo-website
+      traefik.http.routers.equipnivo-website-secure.tls: 'true'
+      traefik.http.routers.equipnivo-website-secure.tls.certresolver: letsencrypt
 networks:
   coolify:
     external: true
