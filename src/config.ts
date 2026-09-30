@@ -1,7 +1,9 @@
 export const site = {
   url: 'https://equipnivo.stackedthink.com',
-  checkout: 'https://buy.stripe.com/7sY7sMgDC5h58MV3sBaAw00',
+  checkout: '/licence-help/#availability',
+  paymentLink: 'https://buy.stripe.com/7sY7sMgDC5h58MV3sBaAw00',
   // Only set this after verifying a stable Windows installer release asset.
-  windowsDownload: null as string | null,
-  downloadVersion: null as string | null,
+  windowsDownload: '/downloads/Equipnivo-1.0.0-Windows-x64.exe' as string | null,
+  downloadVersion: '1.0.0 trial candidate' as string | null,
 };
+

@@ -29,3 +29,12 @@ Astro check: zero errors, warnings or hints. Production build: four static pages
 Public DNS resolves to the VPS. HTTPS validation passes; certificate SAN is equipnivo.stackedthink.com, issued by Let's Encrypt, expires 2026-12-29. Home, download, licence help, robots, sitemap, social image and favicon return 200; a nonexistent route returns 404. The old HTTPS URL redirects with status 301 and preserves paths/query strings. Sunshine Plunge HTTPS returns 200.
 
 The old redirect configuration backup is `/var/www/maintainr-website/deploy/container-nginx.before-equipnivo.conf`. It was tested with nginx -t before reloading only the old website container. No shared proxy restart was required.
+
+## Windows trial download — 2026-09-30
+
+The initial Equipnivo 1.0.0 trial candidate is served from `/var/www/equipnivo-website/downloads/Equipnivo-1.0.0-Windows-x64.exe`, outside the static-release symlink. Nginx aliases `/downloads/` to that persistent directory. Directory listing is disabled; EXE uses application/octet-stream, checksum uses text/plain, and range requests work. SHA-256 sidecar is provided. Configuration backup: `container-nginx.before-downloads.conf`; nginx -t passed before the website-only reload.
+
+The app source is now RyanGAt/Equipnivo. This installer includes .NET and local fonts; the app and local licensing smoke tests pass. Administrator installation/upgrade/uninstall still need clean-machine verification. The candidate is unsigned.
+
+Paid purchase links on this website are paused and lead to the licensing availability notice. Read-only checks found that license.stackedthink.com has no DNS and Stripe has no webhook endpoint; no paid sessions exist for the configured payment link. Its current name/metadata already use Equipnivo. Production setup is reported in the app repository at docs/PRODUCTION-LICENSING.md and awaits the user's decision. No live Stripe mutation was performed.
+
