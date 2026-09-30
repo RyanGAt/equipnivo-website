@@ -19,3 +19,13 @@ Repository: https://github.com/RyanGAt/equipnivo-website
 Deployment requires nginx -t before starting/reloading the website Nginx. The old site's Nginx config is backed up before installing its redirect. The website source is pushed to main and the static release is identified in /var/www/equipnivo-website/deployed-commit.txt.
 
 No installer has been published. Download labels remain coming soon. Application release plan: APP-RENAME-PLAN.md. Production checkout and licensing may still show the old product name until the separately approved cutover.
+
+## Verified release
+
+Static source commit: `855a5064c7c36a42dafe245b33e7aceeacacbe0e`, deployed at `/var/www/equipnivo-website/releases/855a5064c7c36a42dafe245b33e7aceeacacbe0e`.
+
+Astro check: zero errors, warnings or hints. Production build: four static pages. Desktop and 390px mobile layouts inspected, without horizontal overflow. Built HTML/CSS/robots/sitemap contain no previous product name or licence prefix.
+
+Public DNS resolves to the VPS. HTTPS validation passes; certificate SAN is equipnivo.stackedthink.com, issued by Let's Encrypt, expires 2026-12-29. Home, download, licence help, robots, sitemap, social image and favicon return 200; a nonexistent route returns 404. The old HTTPS URL redirects with status 301 and preserves paths/query strings. Sunshine Plunge HTTPS returns 200.
+
+The old redirect configuration backup is `/var/www/maintainr-website/deploy/container-nginx.before-equipnivo.conf`. It was tested with nginx -t before reloading only the old website container. No shared proxy restart was required.
