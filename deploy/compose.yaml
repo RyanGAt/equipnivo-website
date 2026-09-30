@@ -15,12 +15,14 @@ services:
       traefik.http.routers.maintainr-website-http.rule: Host(`maintainr.stackedthink.com`)
       traefik.http.routers.maintainr-website-http.entrypoints: http
       traefik.http.routers.maintainr-website-http.service: maintainr-website
-      traefik.http.routers.maintainr-website-https.rule: Host(`maintainr.stackedthink.com`)
-      traefik.http.routers.maintainr-website-https.entrypoints: https
-      traefik.http.routers.maintainr-website-https.service: maintainr-website
-      traefik.http.routers.maintainr-website-https.tls: 'true'
-      traefik.http.routers.maintainr-website-https.tls.certresolver: letsencrypt
-    # Enable redirect only after DNS and a valid certificate are verified.
+      traefik.http.middlewares.maintainr-redirect.redirectscheme.scheme: https
+      traefik.http.middlewares.maintainr-redirect.redirectscheme.permanent: 'true'
+      traefik.http.routers.maintainr-website-http.middlewares: maintainr-redirect
+      traefik.http.routers.maintainr-website-secure.rule: Host(`maintainr.stackedthink.com`)
+      traefik.http.routers.maintainr-website-secure.entrypoints: https
+      traefik.http.routers.maintainr-website-secure.service: maintainr-website
+      traefik.http.routers.maintainr-website-secure.tls: 'true'
+      traefik.http.routers.maintainr-website-secure.tls.certresolver: letsencrypt
 networks:
   coolify:
     external: true

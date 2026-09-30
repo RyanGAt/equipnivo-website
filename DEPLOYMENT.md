@@ -19,11 +19,11 @@ Astro check: zero errors, warnings and hints. Production build: four static page
 
 Using explicit Host routing to the VPS: home, download, licence help, robots, sitemap and social image returned 200; a missing path returned 404. The external HTTP request using curl `--resolve` returned 200. Sunshine Plunge HTTPS still returned 200 with certificate validation.
 
-## Pending DNS and HTTPS
+## DNS and HTTPS completed
 
-Public DNS returned NXDOMAIN for maintainr.stackedthink.com. The domain is not publicly reachable through normal DNS yet. A trusted HTTPS certificate has not been issued. HTTPS routing is prepared, but must not be represented as working HTTPS until DNS and certificate validation pass.
+On 2026-09-30 the Cloudflare A record for `maintainr.stackedthink.com` was created pointing to `85.190.106.89`, DNS only, TTL Auto (300 seconds). Public DNS resolves correctly. HTTPS returns 200 with a valid Let's Encrypt certificate matching the domain, expiring 2026-12-29. The HTTP router redirects to HTTPS. Traefik manages certificate renewal through its existing resolver.
 
-Create a Cloudflare A record: name `maintainr`, IPv4 `85.190.106.89`, DNS only initially, TTL Auto. No unrelated records need changing. Once propagated, verify Traefik certificate issuance and enable the HTTP redirect documented in README.
+The site is publicly available at https://maintainr.stackedthink.com. No unrelated DNS records were modified. The dedicated HTTPS router is named `maintainr-website-secure`. DNS and HTTPS require no further manual setup.
 
 No Windows release assets exist in RyanGAt/Maintainr as of this check. Download buttons accurately say coming soon. Set the exact installer URL in `src/config.ts` only after a stable publicly downloadable Windows installer exists.
 

@@ -59,7 +59,7 @@ If DNS is absent, create the following Cloudflare record in the stackedthink.com
 
 No AAAA record is needed unless the VPS IPv6 address has been verified. Make no unrelated DNS changes.
 
-Once public DNS resolves correctly, Traefik's existing `letsencrypt` resolver can issue the certificate for the dedicated HTTPS route. HTTP is temporarily left available so the site can be checked before DNS and certificate setup. After verifying a valid certificate, add these labels to the website service:
+Once public DNS resolves correctly, Traefik's existing `letsencrypt` resolver can issue the certificate for the dedicated HTTPS route. DNS and certificate issuance are complete. The following redirect labels are enabled on the website service:
 
 ```sh
 traefik.http.middlewares.maintainr-redirect.redirectscheme.scheme: https
