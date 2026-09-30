@@ -1,0 +1,26 @@
+services:
+  website:
+    image: nginx:stable-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94
+    container_name: maintainr-website
+    restart: unless-stopped
+    volumes:
+      - /var/www/maintainr-website:/var/www/maintainr-website:ro
+      - /var/www/maintainr-website/deploy/container-nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - coolify
+    labels:
+      traefik.enable: 'true'
+      traefik.docker.network: coolify
+      traefik.http.services.maintainr-website.loadbalancer.server.port: '80'
+      traefik.http.routers.maintainr-website-http.rule: Host(`maintainr.stackedthink.com`)
+      traefik.http.routers.maintainr-website-http.entrypoints: http
+      traefik.http.routers.maintainr-website-http.service: maintainr-website
+      traefik.http.routers.maintainr-website-https.rule: Host(`maintainr.stackedthink.com`)
+      traefik.http.routers.maintainr-website-https.entrypoints: https
+      traefik.http.routers.maintainr-website-https.service: maintainr-website
+      traefik.http.routers.maintainr-website-https.tls: 'true'
+      traefik.http.routers.maintainr-website-https.tls.certresolver: letsencrypt
+    # Enable redirect only after DNS and a valid certificate are verified.
+networks:
+  coolify:
+    external: true
