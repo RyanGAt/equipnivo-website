@@ -38,3 +38,5 @@ The app source is now RyanGAt/Equipnivo. This installer includes .NET and local 
 
 Paid purchase links on this website are paused and lead to the licensing availability notice. Read-only checks found that license.stackedthink.com has no DNS and Stripe has no webhook endpoint; no paid sessions exist for the configured payment link. Its current name/metadata already use Equipnivo. Production setup is reported in the app repository at docs/PRODUCTION-LICENSING.md and awaits the user's decision. No live Stripe mutation was performed.
 
+Production licensing is now deployed following explicit user authorization. The live Stripe webhook and licence-key redirect are configured; fresh checkout fields match product=equipnivo, major_version=1, GBP/7900 and the preserved Payment Link ID. Valid/invalid signatures and no-licence unpaid handling passed on production; paid fulfillment was verified against an isolated copy of fresh checkout fields. No live payment was made. Purchase links are restored. See the app repository's docs/PRODUCTION-LICENSING.md for the current deployment.
+
